@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+</head>
+<body>
+<div class="article-viewer markdown-body cache result" style=""><p>入职第一天就干活的，就问还有谁，搬来一台N手电脑，第一分钟开机，第二分钟派活，第三分钟干活，巴适。。。。。。</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/62bacd935bba41d6bdece441f469822b~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=270&amp;h=270&amp;s=6020&amp;e=webp&amp;b=f5f5f5" alt="4f7ca8c685324356868f65dd8862f101~tplv-k3u1fbpfcp-jj-mark_3024_0_0_0_q75.jpg" loading="lazy" class="medium-zoom-image"></p>
+<h2 data-id="heading-0">打开代码发现问题不断</h2>
+<ol>
+<li>读取配置文件居然读取两个配置文件，一个读一点，不清楚为什么不能一个配置文件进行配置</li>
+</ol>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a8237e7925f64f12af06f7971c6976aa~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=443&amp;h=21&amp;s=4100&amp;e=png&amp;b=2b2b2b" alt="image.png" loading="lazy" class="medium-zoom-image"></p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/44b4ac76d7e24377bba8533cff854783~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=323&amp;h=24&amp;s=3147&amp;e=png&amp;b=2b2b2b" alt="image.png" loading="lazy" class="medium-zoom-image"></p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6db9c2240af246d0afa2f8fb0dbcc264~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=881&amp;h=159&amp;s=28270&amp;e=png&amp;b=2b2b2b" alt="image.png" loading="lazy" class="medium-zoom-image">
+一边获取WEB-INF下的配置文件，一边用外部配置文件进行覆盖，有人可能会问既然覆盖，那可以全在外部配置啊，问的好，如果全用外部配置，咱们代码获取属性有的加上了项目前缀（上面的两个put），有的没加，这样配置文件就显得很乱不可取，所以形成了分开配置的局面，如果接受混乱，就写在外部配置；不能全写在内部配置，因为</p>
+
+<p>value获取外部配置为空的时候会抛出异常；properties底层集合用的是hashTable</p>
+
+<ol start="2">
+<li>很多参数写死在代码里，如果有改动，工作量会变得异常庞大，举例权限方面伪代码</li>
+</ol>
+
+<ol start="3">
+<li>日志打印居然sout和log混合双打</li>
+</ol>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a0931c0e6a394ec896cf44cd48caa650~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=583&amp;h=63&amp;s=8417&amp;e=png&amp;b=2b2b2b" alt="image.png" loading="lazy" class="medium-zoom-image"></p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/49bc5a34deb84788a5907dec3505038e~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=423&amp;h=109&amp;s=13529&amp;e=png&amp;b=2d2d2d" alt="image.png" loading="lazy" class="medium-zoom-image"></p>
+<p>先不说双打的事，对于上图这个，应该输出包括堆栈信息，不然定位问题很麻烦，有人可能会说e.getMessage()最好，可是生产问题看多了发现还是打堆栈好；还有如果不是定向返回信息，仅仅是记录日志，完全没必要catch多个异常，一个Exception足够了，不知道原作者这么写的意思是啥；还是就是打印日志要用logger，用sout打印在控制台，那我日志文件干啥；</p>
+<p>4.提交的代码没有技术经理把关，下发生产包是个人就可以发导致生产环境代码和本地代码或者数据库数据出现不一致的现象，数据库数据的同步是生产最容易忘记执行的一个事情；比如我的这家公司上传文件模板变化了，但是没同步，导致出问题时开发环境复现问题真是麻烦；</p>
+<p>5.随意更改生产数据库，出不出问题全靠开发的职业素养；</p>
+<p>6.Maven依赖的问题，Maven引pom，而pom里面却是另一个pom文件，没有生成的jar供引入，是的，我们可以在<em>dependency</em>里加上</p>
+
+<p>来解决这个问题，但是公司内的，而且实际也是引入这个pom里面的jar的，我实在不知道这么做的用意是什么，有谁知道；求教
+<img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f9261f984d2e4b7294e42b18565a95fc~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=220&amp;h=220&amp;s=5358&amp;e=webp&amp;b=fafafa" alt="a972880380654b389246a3179add2cca~tplv-k3u1fbpfcp-jj-mark_3024_0_0_0_q75.jpg" loading="lazy" class="medium-zoom-image"></p>
+<p><strong>以上这些都是我最近一家公司出现的问题，除了默默接受还能怎么办；</strong></p>
+<p>那有什么优点呢：</p>
+<ol>
+<li>不用太怎么写文档</li>
+<li>束缚很小</li>
+<li>学到了js的全局调用怎么写的（下一篇我来写，顺便巩固一下）</li>
+</ol>
+<h2 data-id="heading-1">解决之道</h2>
+<p>怎么解决这些问题呢，首先对于现有的新项目或升级的项目来说，spring的application.xml/yml 完全可以写我们的配置，开发环境没必要整外部文件，如果是生产环境我们可以在脚本或启动命令添加
+<code>nohup java -Dfile.encoding=UTF-8 -Dspring.config.location=server/src/main/config/application.properties -jar xxx.jar &amp;</code>
+来告诉jar包引哪里的配置文件；也可以加上动态配置，都很棒的，</p>
+<p>其次就是规范代码，养成良好的规范，跟着节奏，不要另辟蹊径；老老实实的，如果原项目上迭代，不要动源代码，追加即可，没有时间去重构的；</p>
+<blockquote>
+<p>我也曾是个快乐的童鞋，也有过崇高的理想，直到我面前堆了一座座山，脚下多了一道道坑，我。。。。。。！</p>
+
+</body>
+</html>
