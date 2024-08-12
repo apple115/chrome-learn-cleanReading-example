@@ -5,7 +5,8 @@ function getArticleText() {
     var htmlContent = articleRoot.innerHTML
       .replace(/<style.*?<\/style>/gi, "")
       .replace(/<script.*?<\/script>/gi, "")
-      .replace(/<pre[\s\S]*?<\/pre>/gi, "");
+      .replace(/<pre[\s\S]*?<\/pre>/gi, "")
+      .replace(/<img.*?>/g, "");
     //    console.log(htmlContent);
     return htmlContent;
   }
