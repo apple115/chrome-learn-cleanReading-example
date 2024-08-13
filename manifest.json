@@ -6,10 +6,20 @@
   "action": {
     "default_popup": "popup.html"
   },
-    "content_scripts": [
-        {
-        "matches": ["<all_urls>"],
-        "js": ["content.js"]
-        }
-    ]
+  "web_accessible_resources": [
+    {
+      "resources": [ "newPage.html"],
+      "matches":["<all_urls>"]
+    },
+    {
+      "resources": ["resource/right.png","resource/top.png","resource/left.png"],
+      "matches":["<all_urls>"]
+    }
+  ],
+"content_scripts": [
+    {
+    "matches": ["<all_urls>"],
+    "js": ["content.js"]
+    }
+]
 }
