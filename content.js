@@ -21,80 +21,41 @@ function getArticleTitle() {
   }
 }
 
-function applyStyles() {
-  // 创建一个新的<style>元素
-  const styleElement = document.createElement("style");
-  // 添加CSS样式
-  styleElement.textContent = `
-    #new-article-container p {
-      font-size: 16px;
-      line-height: 1.6;
-    }
-    #new-article-container li {
-      margin-left: 20px;
-    }
-    #new-article-container code {
-      background-color: #f5f5f5;
-      padding: 2px 6px;
-      border-radius: 3px;
-     display: inline-block; /* 或者使用 block; 如果您希望 <code> 元素独占一行 */
-     margin: 10px 0; /* 上下边距增加，可根据需要调整 */
-    }
-    .article-viewer {
-    width: 80%;
-    max-width: 800px; /* 根据需要调整最大宽度 */
-    margin: 0 auto; /* 水平居中 */
-    padding: 20px; /* 添加内边距 */
-    font-size: 16px; /* 根据需要调整字体大小 */
-    line-height: 1.6; /* 设置行高 */
-    }
-    /* 添加更多样式规则 */
-  `;
-  // 将<style>元素添加到<head>中
-  document.head.appendChild(styleElement);
-}
-
-
 function changePage(title, text) {
-  // Create a new HTML structure
-  // const juejinDiv = document.getElementById("juejin");
-  // if (juejinDiv) {
-  //   const newContent = `
-  //     <div id="new-article-container">
-  //       <h1>${title}</h1>
-  //       <div>${text}</div>
-  //     </div>
-  //   `;
-  //   juejinDiv.innerHTML = newContent;
-  //     // applyStyles();
-  // }
+    // 创建一个容器用于加载新页面的内容
+    const tempContainer = document.createElement('div');
+    tempContainer.style.display = 'none';
+    document.body.appendChild(tempContainer);
 
-// 移除所有样式表链接
+    // 加载自定义布局的HTML文件
+    fetch('newPage.html')
+        .then(response => response.text())
+        .then(data => {
+            // 将获取到的 HTML 内容插入临时容器中
+            tempContainer.innerHTML = data;
 
-var newHTML = `
-    <div id="new-article-container">
-      <h1 id="new-article-title"></h1>
-      <div id="new-article-content"></div>
-    </div>
-  `;
+            // 从临时容器中提取页面内容
+            const newArticleContainer = tempContainer.querySelector('#page-container');
 
-  // 将新HTML插入到body中，替换原有的内容。
-  document.body.innerHTML = newHTML;
+            // 将提取到的内容替换到当前页面的主体部分
+            document.body.innerHTML = newArticleContainer.outerHTML;
 
-  // 设置标题和内容。
-  document.getElementById('new-article-title').textContent = title;
-  document.getElementById('new-article-content').innerHTML = text;
+            // 设置标题和内容
+            document.getElementById('new-article-title').textContent = title;
+            document.getElementById('new-article-content').innerHTML = text;
 
-
-
+            // 移除临时容器
+            document.body.removeChild(tempContainer);
+        })
+        .catch(error => console.error('Error loading custom layout:', error));
 }
 
 // content.js
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.action === "getArticleData") {
-    const title = getArticleTitle();
-    const text = getArticleText();
-    // 调用 changePage 函数并传入文章数据
-    changePage(title, text);
-  }
+    if (request.action === "getArticleData") {
+        const title = getArticleTitle();
+        const text = getArticleText();
+        // 调用 changePage 函数并传入文章数据
+        changePage(title, text);
+    }
 });

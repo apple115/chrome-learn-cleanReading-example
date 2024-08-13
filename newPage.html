@@ -1,0 +1,78 @@
+<!-- custom-layout.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Layout</title>
+    <style>
+        #page-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        #top-image-container,
+        #bottom-image-container {
+            text-align: center;
+        }
+
+        #top-image,
+        #bottom-image {
+            width: 100%;
+            height: auto;
+        }
+
+        #content-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #left-image-container,
+        #right-image-container {
+            width: 20%;
+        }
+
+        #left-image,
+        #right-image {
+            width: 100%;
+            height: auto;
+        }
+
+        #main-content {
+            width: 60%;
+            padding: 0 10px;
+        }
+
+        #new-article-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        #new-article-content {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div id="page-container">
+    <div id="top-image-container">
+        <img src="resource/top.png" id="top-image" alt="Top Image">
+    </div>
+    <div id="content-container">
+        <div id="left-image-container">
+            <img src="resource/left.png" id="left-image" alt="Left Image">
+        </div>
+        <div id="main-content">
+            <div id="new-article-container">
+                <h1 id="new-article-title"></h1>
+                <div id="new-article-content"></div>
+            </div>
+        </div>
+        <div id="right-image-container">
+            <img src="resource/right.png" id="right-image" alt="Right Image">
+        </div>
+    </div>
+</div>
+</body>
+</html>
