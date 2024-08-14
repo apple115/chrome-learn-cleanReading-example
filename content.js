@@ -48,6 +48,9 @@ function changePage(title, text) {
       left_image.src = left_image_src;
       right_image.src = right_image_src;
 
+        // // 将提取到的内容替换当前页面的内容区域而不是整个 body
+        // document.getElementById("main-content").outerHTML = newArticleContainer.outerHTML;
+
       // 将提取到的内容替换到当前页面的主体部分
       document.body.innerHTML = newArticleContainer.outerHTML;
 

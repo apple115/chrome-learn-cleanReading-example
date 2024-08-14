@@ -10,11 +10,13 @@
             position: relative;
             width: 100%;
             height: 100%;
+            box-sizing: border-box; /* 确保包含内边距和边框 */
         }
 
         #top-image-container,
         #bottom-image-container {
             text-align: center;
+            width: 100%;
         }
 
         #top-image,
@@ -26,11 +28,15 @@
         #content-container {
             display: flex;
             justify-content: space-between;
+            width: 100%;
+            box-sizing: border-box; /* 包括内边距在内 */
+            margin: 0 auto;
         }
 
         #left-image-container,
         #right-image-container {
-            width: 20%;
+            flex: 0 0 20%; /* 固定20%宽度 */
+            box-sizing: border-box; /* 确保宽度计算包括内边距和边框 */
         }
 
         #left-image,
@@ -40,8 +46,19 @@
         }
 
         #main-content {
-            width: 60%;
+            flex: 1; /* 占用剩余空间 */
+            max-width: 60%; /* 确保内容不会过宽 */
             padding: 0 10px;
+            box-sizing: border-box; /* 包括内边距在内 */
+            overflow: hidden; /* 防止内容溢出 */
+        }
+
+        #new-article-container {
+            flex: 1; /* 占用剩余空间 */
+            max-width: 60%; /* 确保内容不会过宽 */
+            padding: 0 10px;
+            box-sizing: border-box; /* 包括内边距在内 */
+            overflow: hidden; /* 防止内容溢出 */
         }
 
         #new-article-title {
@@ -53,6 +70,7 @@
             font-size: 16px;
         }
     </style>
+
 </head>
 <body>
 <div id="page-container">
