@@ -2,13 +2,12 @@ function getArticleText() {
   var articleRoot = document.getElementById("article-root");
   if (articleRoot) {
     // 获取该元素的innerHTML，即元素内的所有HTML内容
-    var htmlContent = articleRoot.innerHTML
-      .replace(/<style.*?<\/style>/gi, "")
-      .replace(/<script.*?<\/script>/gi, "")
-      .replace(/<pre[\s\S]*?<\/pre>/gi, "")
-      .replace(/<img.*?>/g, "");
-    //    console.log(htmlContent);
-    return htmlContent;
+      //    console.log(htmlContent);
+    return articleRoot.innerHTML
+        .replace(/<style.*?<\/style>/gi, "")
+        .replace(/<script.*?<\/script>/gi, "")
+        .replace(/<pre[\s\S]*?<\/pre>/gi, "")
+        .replace(/<img.*?>/g, "");
   }
 }
 
