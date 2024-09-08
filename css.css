@@ -1,3 +1,9 @@
+body {
+    background-color: rgb(0,0,0); /* 设置整个页面的背景颜色为白色 */
+    margin: 0; /* 清除默认的 body 边距 */
+    padding: 0; /* 清除默认的 body 内边距 */
+}
+
 #page-container {
     position: relative;
     width: 100%;
@@ -5,30 +11,42 @@
     box-sizing: border-box; /* 确保包含内边距和边框 */
 }
 
-#top-image-container,
-#bottom-image-container {
+#top-image-container {
+    position: fixed; /* 固定位置 */
     text-align: center;
     width: 100%;
+    height: 50px;
 }
 
-#top-image,
-#bottom-image {
+#top-image {
     width: 100%;
-    height: auto;
 }
 
 #content-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* 居中内容 */
     width: 100%;
     box-sizing: border-box; /* 包括内边距在内 */
     margin: 0 auto;
+    /*padding-left: 25%; !* 为右侧图片留出空间 *!*/
+    /*padding-right: 25%; !* 为左侧图片留出空间 *!*/
 }
 
 #left-image-container,
 #right-image-container {
-    flex: 0 0 25%; /* 固定20%宽度 */
-    box-sizing: border-box; /* 确保宽度计算包括内边距和边框 */
+    position: fixed; /* 固定位置 */
+    top: 50px; /* 从页面顶部开始 */
+    width: 25%; /* 固定25%宽度 */
+    height: 100vh; /* 高度为视口高度 */
+    overflow: hidden; /* 防止内容溢出 */
+}
+
+#left-image-container {
+    left: 0; /* 左边固定 */
+}
+
+#right-image-container {
+    right: 0; /* 右边固定 */
 }
 
 #left-image,
@@ -40,14 +58,23 @@
 #main-content {
     flex: 1; /* 占用剩余空间 */
     max-width: 50%; /* 确保内容不会过宽 */
-    padding: 0 10px;
+    margin-top: 50px;
+    /*padding: 0 10px;*/
     box-sizing: border-box; /* 包括内边距在内 */
     overflow: hidden; /* 防止内容溢出 */
+    /*margin: 0 auto;*/
+}
+
+#article{
+    padding: 10px;
+    border: 1px solid #ccc; /* 可选：为内容添加边框 */
+    border-radius: 15px; /* 设置圆角边框半径为15px */
 }
 
 #new-article-title {
     font-size: 24px;
     margin-bottom: 10px;
+
 }
 
 #new-article-content {
